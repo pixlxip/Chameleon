@@ -1,0 +1,190 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChameleonWindow : Adw.ApplicationWindow {
+  default-width: 1000;
+  default-height: 700;
+  width-request: 300;
+  height-request: 300;
+
+  Adw.Breakpoint {
+    condition ("max-width: 450sp")
+
+    setters {
+      split_view.collapsed: true;
+    }
+  }
+
+  content: Adw.OverlaySplitView split_view {
+    show-sidebar: bind show_sidebar_button.active;
+
+    sidebar: Adw.NavigationPage {
+      title: "Chameleon";
+      tag: "sidebar";
+
+      child: Adw.ToolbarView {
+        [top]
+        Adw.HeaderBar {
+          [start]
+          Adw.SplitButton {
+            icon-name: "plus-large-square-outline-symbolic";
+            menu-model: button_new_menu;
+            tooltip-text: C_("button new", "New");
+          }
+
+          [end]
+          Gtk.MenuButton {
+            icon-name: "open-menu-symbolic";
+            menu-model: primary_menu;
+            tooltip-text: C_("button menu", "Menu");
+          }
+        }
+
+        content: Gtk.ListBox {
+          selection-mode: browse;
+          styles ["navigation-sidebar"]
+
+          Gtk.ListBoxRow {
+            Gtk.Label {
+              label: "Text";
+              xalign: 0;
+            }
+          }
+        };
+      };
+    };
+
+    content: Adw.NavigationPage {
+      title: "Content";
+      tag: "content";
+
+      child: Adw.ToolbarView {
+        [top]
+        Adw.HeaderBar {
+          [start]
+          Gtk.ToggleButton show_sidebar_button {
+            icon-name: "sidebar-show-symbolic";
+            tooltip-text: C_("button toggle sidebar", "Toggle Sidebar");
+            active: bind split_view.show-sidebar;
+          }
+
+          [title]
+          Gtk.Box {
+            orientation: horizontal;
+            spacing: 4;
+
+            Gtk.Entry {
+              placeholder-text: C_("palette new", "New Palette");
+            }
+
+            Gtk.MenuButton {
+              icon-name: "view-more-symbolic";
+              menu-model: button_more_options_menu;
+              tooltip-text: C_("button more options", "More Options");
+            }
+          }
+
+          [end]
+          Adw.SplitButton {
+            styles ["suggested-action"]
+            menu-model: button_apply_menu;
+
+            Adw.ButtonContent {
+              icon-name: "larger-brush-symbolic";
+              label: C_("button apply", "Apply");
+            }
+          }
+        }
+
+        content: Gtk.Stack {
+          Gtk.StackPage {
+            name: "page1";
+            title: "Stack Page 1";
+
+            child: Adw.PreferencesPage {
+              Adw.PreferencesGroup {
+                title: "Title";
+                description: "Description";
+
+                Adw.EntryRow {
+                  title: "Entry";
+
+                  Gtk.Button {
+                    icon-name: "edit-copy-symbolic";
+                    valign: center;
+                    tooltip-text: "Copy";
+                    styles ["flat"]
+                  }
+                }
+
+                Adw.SwitchRow {
+                  title: "Switch";
+                  subtitle: "Subtitle";
+                }
+              }
+            };
+          }
+        };
+      };
+    };
+  };
+}
+
+menu primary_menu {
+  item {
+    label: C_("menu field preferences", "_Preferences");
+    action: "app.preferences";
+  }
+  item {
+    label: C_("menu field shortcuts", "_Keyboard Shortcuts");
+    action: "win.show-help-overlay";
+  }
+  item {
+    label: C_("manu field about", "_About");
+  }
+}
+
+menu button_new_menu {
+  item {
+    label: C_("menu field from file", "Open File");
+  }
+  item {
+    label: C_("menu field from online", "Find Palettes Online");
+  }
+}
+
+menu button_more_options_menu {
+  item {
+    label: C_("menu field delete", "Delete");
+  }
+  item {
+    label: C_("menu field duplicate", "Duplicate");
+  }
+  submenu {
+    label: C_("submenu export", "Export...");
+    item {
+      label: C_("menu field export toml", "As TOML");
+    }
+    item {
+      label: C_("menu field export gradience", "As Gradience JSON");
+    }
+  }
+}
+
+menu button_apply_menu {
+  item {
+    label: C_("menu field apply gtk4", "Apply to Adwaita");
+  }
+  item {
+    label: C_("menu field apply gtk3", "Apply to GTK3");
+  }
+  item {
+    label: C_("menu field apply shell", "Apply to Shell");
+  }
+  item {
+    label: C_("menu field apply gdm", "Apply to GDM");
+  }
+  item {
+    label: C_("menu field apply firefox", "Apply to Firefox");
+  }
+}

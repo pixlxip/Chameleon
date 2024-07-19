@@ -1,0 +1,4 @@
+data/app.drey.Chameleon.desktop.in
+data/app.drey.Chameleon.metainfo.xml.in
+data/app.drey.Chameleon.gschema.xml
+src/window.ui

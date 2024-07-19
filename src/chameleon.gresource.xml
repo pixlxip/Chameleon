@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/app/drey/Chameleon">
+    <file preprocess="xml-stripblanks">window.ui</file>
+    <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
+  </gresource>
+
+  <!-- Icons -->
+  <gresource prefix="/app/drey/Chameleon/icons/scalable/actions/">
+    <file preprocess="xml-stripblanks" alias="search-global-symbolic.svg">icons/search-global-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="plus-large-square-outline-symbolic.svg">icons/plus-large-square-outline-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="larger-brush-symbolic.svg">icons/larger-brush-symbolic.svg</file>
+  </gresource>
+</gresources>
+

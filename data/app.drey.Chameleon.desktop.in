@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=chameleon
+Exec=chameleon
+Icon=app.drey.Chameleon
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true
